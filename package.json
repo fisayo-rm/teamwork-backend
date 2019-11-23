@@ -4,7 +4,8 @@
   "description": "API Endpoints for Project TeamWork",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --exit"
+    "test": "mocha --timeout 10000 --exit",
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,9 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "coveralls": "^3.0.8",
     "mocha": "^6.2.2",
+    "nyc": "^14.1.1",
     "supertest": "^4.0.2"
   },
   "bugs": {
