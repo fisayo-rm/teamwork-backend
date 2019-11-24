@@ -18,3 +18,28 @@ describe('The Server', () => {
       });
   });
 });
+
+describe('API Endpoints', () => {
+  it('Adds a new a employee', (done) => {
+    const userId = 454
+    chai.request(app)
+      .post('/api/v1/auth/create-user')
+      .send({ 
+        first_name: "John",
+        last_name: "Doe",
+        email: 'johndoe@email.com',
+        password: 'password',
+        gender: 'male',
+        job_role: 'Engineer',
+        department: 'IT',
+        address: 'here, there, everywhere'
+       })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.status).to.equal('succes');
+        expect(res.body.data.message).to.equal('User account created successfully');
+        expect(res.body.data.userId).to.equal(userId);
+        done();
+      });
+  });
+});
