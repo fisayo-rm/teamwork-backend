@@ -22,9 +22,9 @@ describe('The Server', () => {
 });
 
 describe('API Endpoints', () => {
-  beforeEach(async () => {
-    await employeeCtrl.deleteAll();
-  });
+  // beforeEach(async () => {
+  //   await employeeCtrl.deleteAll();
+  // });
 
   it('Adds a new a employee', (done) => {
     chai.request(app)
