@@ -52,7 +52,7 @@ const Employee = {
           error: "Email already exists"
         });
       }
-      return res.status(400).send({
+      return res.status(420).send({
         status: "error",
         error: error
       });
