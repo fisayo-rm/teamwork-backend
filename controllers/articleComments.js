@@ -34,7 +34,6 @@ const Comment = {
         }
       });
     } catch (error) {
-        console.log(error);
       return res.status(400).send(error);
     }
   }
