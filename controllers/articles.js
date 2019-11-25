@@ -65,8 +65,27 @@ const Article = {
                 }
             })
         } catch(err) {
-            console.log(err);
             return res.status(400).send(err);
+        }
+    },
+
+    async delete(req, res) {
+        const deleteQuery = `DELETE FROM "public"."tw_articles" WHERE id=$1 AND owner_id=$2 returning *`;
+        try {
+            const { rows } = await db.query(deleteQuery, [req.params.articleId, req.user.id]);
+            if(!rows[0]){
+                return res.status(400).send({
+                    message: 'article not found'
+                });
+            }
+            return res.status(204).send({
+                status: 'success',
+                data: {
+                    message: 'Article successfully deleted'
+                }
+            });
+        } catch(error) {
+            return res.status(400).send(error);
         }
     }
 }
