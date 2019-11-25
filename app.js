@@ -1,5 +1,6 @@
 const express = require('express');
 const employeeRoutes = require('./routes/employees');
+const gifRoutes = require('./routes/gifs');
 
 const app = express();
 app.use(express.json());
@@ -9,6 +10,14 @@ app.get('/', (req, res) => {
   res.send('Nothing to do here!');
 });
 
-app.use('/api/v1/', employeeRoutes);
+app.get("/api/v1/", (req, res) => {
+  res.json({
+    status: "success",
+    message: "Welcome to TeamWork API v1"
+  });
+});
+
+app.use('/api/v1/auth/', employeeRoutes);
+app.use('/api/v1/gif', gifRoutes);
 
 module.exports = app;

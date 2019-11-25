@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const db = require('../db/index');
 
 module.exports = async (req, res, next) => {
-    const token = req.header['x-access-token'];
+    const token = req.headers['x-access-token'];
     if(!token) {
         return res.status(400).send({
             message: 'Token is not provided'
