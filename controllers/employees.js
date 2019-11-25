@@ -28,7 +28,7 @@ const Employee = {
       req.body.first_name,
       req.body.last_name,
       req.body.email,
-      req.body.password,
+      hashPassword,
       req.body.gender,
       req.body.job_role,
       req.body.department,
@@ -37,12 +37,13 @@ const Employee = {
 
     try {
       const { rows } = await db.query(createQuery, values);
+      const token = helper.generateToken(rows[0].id);
       return res.status(201).send({
         status: "success",
         data: {
           message: "User account created successfully",
-          token: "Random token for now",
-          userId: userId
+          token,
+          userId
         }
       });
     } catch (error) {
@@ -57,6 +58,44 @@ const Employee = {
         error: error
       });
     }
+  },
+
+  async login(req, res) {
+      if(!req.body.email || !req.body.password) {
+          return res.status(400).send({
+            message: 'Some values are missing'
+        });
+      }
+      if (!helper.isValidEmail(req.body.email)) {
+          return res.status(400).send({
+              message: 'Please enter a valid email address'
+          });
+      }
+      const loginQuery = `SELECT * FROM "public"."tw_employees" WHERE email = $1`;
+      try {
+          const { rows } = await db.query(loginQuery, [req.body.email]);
+          if(!rows[0]) {
+              return res.status(400).send({
+                  message: 'Username does not exist'
+              });
+          }
+          if (!helper.comparePassword(rows[0].password, req.body.password)) {
+              return res.status(400).send({
+                  message: 'Incorrect password'
+              });
+          }
+          const token = helper.generateToken(rows[0].id);
+          return res.status(200).send({
+              "status": "success",
+              "data": {
+                  token,
+                  userId: rows[0].id
+              }
+          })
+      } catch(error) {
+          console.log(error);
+          return res.status(400).send(error);
+      }
   },
 
   async deleteAll(req, res) {

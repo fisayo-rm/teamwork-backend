@@ -11,5 +11,6 @@ router.get("/", (req, res) => {
 });
 
 router.post("/auth/create-user", employeeCtrl.create);
+router.post('/auth/signin', employeeCtrl.login);
 
 module.exports = router;

@@ -7,11 +7,21 @@ const Helper = {
     },
 
     comparePassword(hashPassword, password) {
-        return bcrypt.comparePassword(password, hashPassword);
+        return bcrypt.compareSync(password, hashPassword);
     },
 
     isValidEmail(email) {
         return /\S+@\S+\.\S+/.test(email);
+    },
+
+    generateToken(id) {
+        const token = jwt.sign({
+            userId: id
+        },
+        process.env.SECRET,
+        {expiresIn: '2d'}
+        );
+        return token;
     }
 }
 

@@ -48,4 +48,41 @@ describe('API Endpoints', () => {
         done();
       });
   });
+
+  it('Logs employees in', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/create-user')
+      .send({ 
+        first_name: "John",
+        last_name: "Doe",
+        email: 'jdoe@email.com',
+        password: 'password',
+        gender: 'male',
+        job_role: 'Engineer',
+        department: 'IT',
+        address: 'here, there, everywhere'
+       })
+      .end((err, res) => {
+        expect(res).to.have.status(201);
+        expect(res.body.status).to.equal('success');
+        expect(res.body.data.message).to.equal('User account created successfully');
+        expect(res.body.data).to.have.property('token');
+        expect(res.body.data).to.have.property('userId');
+        done();
+      });
+
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .send({
+        email: 'jdoe@email.com',
+        password: 'password'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.status).to.equal('success');
+        expect(res.body.data).to.have.property('token');
+        expect(res.body.data).to.have.property('userId');
+        done();
+      });
+  })
 });
