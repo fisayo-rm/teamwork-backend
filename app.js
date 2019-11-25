@@ -1,6 +1,7 @@
 const express = require('express');
 const employeeRoutes = require('./routes/employees');
 const gifRoutes = require('./routes/gifs');
+const articleRoutes = require('./routes/articles');
 
 const app = express();
 app.use(express.json());
@@ -18,6 +19,7 @@ app.get("/api/v1/", (req, res) => {
 });
 
 app.use('/api/v1/auth/', employeeRoutes);
-app.use('/api/v1/gif', gifRoutes);
+app.use('/api/v1/gifs', gifRoutes);
+app.use('/api/v1/articles', articleRoutes)
 
 module.exports = app;
