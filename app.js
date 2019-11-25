@@ -18,7 +18,7 @@ app.get("/api/v1/", (req, res) => {
   });
 });
 
-app.use('/api/v1/auth/', employeeRoutes);
+app.use('/api/v1/auth', employeeRoutes);
 app.use('/api/v1/gifs', gifRoutes);
 app.use('/api/v1/articles', articleRoutes)
 
