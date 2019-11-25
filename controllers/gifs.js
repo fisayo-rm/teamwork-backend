@@ -7,7 +7,7 @@ const Gif = {
     async create(req, res) {
         const text = `INSERT INTO "public"."tw_gifs" (id, title, img_url, owner_id, created_on, modified_on)
             VALUES ($1, $2, $3, $4, $5, $6) returning *`;
-            
+
         const createdOn = moment(new Date());
         const values = [
             uuidv4(), req.body.title, req.body.img_url,
