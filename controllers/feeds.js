@@ -2,7 +2,7 @@ const db = require("../db/index");
 
 const Post = {
     async getFeed(req, res) {
-        const queryText = `SELECT * FROM "public"."tw_articles" UNION SELECT * FROM "public"."tw_gifs"`;
+        const queryText = `SELECT * FROM "public"."tw_articles" UNION SELECT * FROM "public"."tw_gifs" ORDER BY created_on DESC`;
 
         try {
             const result = await db.query(queryText);
