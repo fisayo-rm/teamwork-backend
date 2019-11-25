@@ -29,6 +29,26 @@ const Gif = {
         } catch (error) {
             return res.status(400).send(error);
         }
+    },
+
+    async delete(req, res) {
+        const deleteQuery = `DELETE FROM "public"."tw_gifs" WHERE id=$1 AND owner_id=$2 returning *`;
+        try {
+            const { rows } = await db.query(deleteQuery, [req.params.gifId, req.user.id]);
+            if (!rows[0]) {
+                return res.status(400).send({
+                    message: 'gif image not found'
+                });
+            }
+            return res.status(201).send({
+                status: 'success',
+                data: {
+                    message: 'gif post successfully deleted'
+                }
+            });
+        } catch(error) {
+            return res.status(400).send(error);
+        }
     }
 }
 
