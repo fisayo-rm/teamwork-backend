@@ -9,5 +9,6 @@ router.post('/', auth, articleCtrl.create);
 router.put('/:articleId', auth, articleCtrl.update)
 router.post('/:articleId/comment', auth, articleCommentCtrl.create);
 router.delete('/:articleId', auth, articleCtrl.delete);
+router.get('/:articleId', auth, articleCtrl.getArticle);
 
 module.exports = router;

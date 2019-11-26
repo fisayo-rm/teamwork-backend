@@ -87,6 +87,33 @@ const Article = {
         } catch(error) {
             return res.status(400).send(error);
         }
+    },
+
+    async getArticle(req, res) {
+        const text = `SELECT * FROM "public"."tw_articles" WHERE id=$1`;
+        const commentQuery = `SELECT id, comment, owner_id FROM "public"."tw_article_comments" WHERE article_id=$1`
+        try {
+            const comments = await db.query(commentQuery, [req.params.articleId]);
+            const { rows } = await db.query(text, [req.params.articleId]);
+            if(!rows[0]){
+                return res.status(400).send({
+                    message: 'Article not found'
+                });
+            }
+            return res.status(200).send({
+                status: 'success',
+                // data: rows
+                data: {
+                    id: rows[0].id,
+                    createdOn: rows[0].created_on,
+                    title: rows[0].title,
+                    article: rows[0].article_body,
+                    comments: comments.rows
+                }
+            });
+        } catch(error){
+            return res.status(400).send(error);
+        }
     }
 }
 
