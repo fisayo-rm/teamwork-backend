@@ -49,6 +49,30 @@ const Gif = {
         } catch(error) {
             return res.status(400).send(error);
         }
+    },
+
+    async getGif(req, res) {
+        const text = `SELECT * FROM "public"."tw_gifs" WHERE id=$1`;
+        const commentQuery = `SELECT id, comment, owner_id FROM "public"."tw_gif_comments" WHERE gif_id=$1`;
+
+        try {
+            const comments = await db.query(commentQuery, [req.params.gifId]);
+            const { rows } = await db.query(text, [req.params.gifId]);
+            if(!rows[0]) {
+                return res.status(400).send({
+                    message: 'Gif not found'
+                });
+            }
+            return res.status(200).send({
+                status: 'success',
+                data: {
+                    ...rows[0],
+                    comments: comments.rows
+                }
+            });
+        } catch(error) {
+            return res.status(400).send(error);
+        }
     }
 }
 

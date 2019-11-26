@@ -91,7 +91,7 @@ const Article = {
 
     async getArticle(req, res) {
         const text = `SELECT * FROM "public"."tw_articles" WHERE id=$1`;
-        const commentQuery = `SELECT id, comment, owner_id FROM "public"."tw_article_comments" WHERE article_id=$1`
+        const commentQuery = `SELECT id, comment, owner_id FROM "public"."tw_article_comments" WHERE article_id=$1`;
         try {
             const comments = await db.query(commentQuery, [req.params.articleId]);
             const { rows } = await db.query(text, [req.params.articleId]);
