@@ -4,17 +4,15 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL
+  connectionString: process.env.DATABASE_URL,
 });
 
-exports.query = (text, params) => {
-    return new Promise((resolve, reject) => {
-        pool.query(text, params)
-        .then((res) => {
-            resolve(res);
-        })
-        .catch((err) => {
-            reject(err);
-        });
+exports.query = (text, params) => new Promise((resolve, reject) => {
+  pool.query(text, params)
+    .then((res) => {
+      resolve(res);
+    })
+    .catch((err) => {
+      reject(err);
     });
-};
+});

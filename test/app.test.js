@@ -1,8 +1,8 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+const uuidv4 = require('uuid/v4');
 const app = require('../app');
-const uuidv4 = require("uuid/v4");
-const employeeCtrl = require("../controllers/employees");
+const employeeCtrl = require('../controllers/employees');
 
 const { expect } = chai;
 chai.use(chaiHttp);
@@ -29,16 +29,16 @@ describe('API Endpoints', () => {
   it('Adds a new a employee', (done) => {
     chai.request(app)
       .post('/api/v1/auth/create-user')
-      .send({ 
-        first_name: "John",
-        last_name: "Doe",
+      .send({
+        first_name: 'John',
+        last_name: 'Doe',
         email: 'jdoe@email.com',
         password: 'password',
         gender: 'male',
         job_role: 'Engineer',
         department: 'IT',
-        address: 'here, there, everywhere'
-       })
+        address: 'here, there, everywhere',
+      })
       .end((err, res) => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.equal('success');
@@ -52,16 +52,16 @@ describe('API Endpoints', () => {
   it('Logs employees in', (done) => {
     chai.request(app)
       .post('/api/v1/auth/create-user')
-      .send({ 
-        first_name: "John",
-        last_name: "Doe",
+      .send({
+        first_name: 'John',
+        last_name: 'Doe',
         email: 'jdoe@email.com',
         password: 'password',
         gender: 'male',
         job_role: 'Engineer',
         department: 'IT',
-        address: 'here, there, everywhere'
-       })
+        address: 'here, there, everywhere',
+      })
       .end((err, res) => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.equal('success');
@@ -75,7 +75,7 @@ describe('API Endpoints', () => {
       .post('/api/v1/auth/signin')
       .send({
         email: 'jdoe@email.com',
-        password: 'password'
+        password: 'password',
       })
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -84,12 +84,12 @@ describe('API Endpoints', () => {
         expect(res.body.data).to.have.property('userId');
         done();
       });
-  })
+  });
 
   // it('Employees can create and share gifs with other colleagues', (done) => {
   //   chai.request(app)
   //     .post('/api/v1/auth/create-user')
-  //     .send({ 
+  //     .send({
   //       first_name: "John",
   //       last_name: "Doe",
   //       email: 'jdoe@email.com',
