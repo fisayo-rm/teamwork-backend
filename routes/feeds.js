@@ -5,6 +5,8 @@ const auth = require('../middleware/auth');
 
 const feedCtrl = require('../controllers/feeds');
 
-router.get('/', auth, feedCtrl.getFeed);
+const userAuth = auth.employee;
+
+router.get('/', userAuth, feedCtrl.getFeed);
 
 module.exports = router;

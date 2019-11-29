@@ -4,6 +4,7 @@ const employeeRoutes = require('./routes/employees');
 const gifRoutes = require('./routes/gifs');
 const articleRoutes = require('./routes/articles');
 const feedRoutes = require('./routes/feeds');
+const adminRoutes = require('./routes/admin');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.get('/api/v1/', (req, res) => {
   });
 });
 
+app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/feed', feedRoutes);
 app.use('/api/v1/auth', employeeRoutes);
 app.use('/api/v1/gifs', gifRoutes);

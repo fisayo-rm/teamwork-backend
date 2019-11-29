@@ -6,10 +6,12 @@ const auth = require('../middleware/auth');
 const articleCtrl = require('../controllers/articles');
 const articleCommentCtrl = require('../controllers/articleComments');
 
-router.post('/', auth, articleCtrl.create);
-router.put('/:articleId', auth, articleCtrl.update);
-router.post('/:articleId/comment', auth, articleCommentCtrl.create);
-router.delete('/:articleId', auth, articleCtrl.delete);
-router.get('/:articleId', auth, articleCtrl.getArticle);
+const userAuth = auth.employee;
+
+router.post('/', userAuth, articleCtrl.create);
+router.put('/:articleId', userAuth, articleCtrl.update);
+router.post('/:articleId/comment', userAuth, articleCommentCtrl.create);
+router.delete('/:articleId', userAuth, articleCtrl.delete);
+router.get('/:articleId', userAuth, articleCtrl.getArticle);
 
 module.exports = router;

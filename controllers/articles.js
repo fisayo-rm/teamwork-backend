@@ -1,7 +1,7 @@
 const moment = require('moment');
 const uuidv4 = require('uuid/v4');
 const db = require('../db/index');
-const helper = require('./helper');
+// const helper = require('./helper');
 
 const Article = {
   async create(req, res) {
@@ -27,7 +27,6 @@ const Article = {
         },
       });
     } catch (error) {
-      console.log(error);
       return res.status(400).send(error);
     }
   },

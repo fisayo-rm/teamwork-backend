@@ -1,4 +1,4 @@
-const moment = require('moment');
+// const moment = require('moment');
 const uuidv4 = require('uuid/v4');
 const db = require('../db/index');
 const helper = require('./helper');
@@ -21,10 +21,10 @@ const Employee = {
             "public"."tw_employees"(
                 id, first_name, last_name, email, password, gender, job_role, department, address
             ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) returning *`;
-    const userId = uuidv4();
-    req.body.id = userId;
+    // const userId = uuidv4();
+    // req.body.id = userId;
     const values = [
-      req.body.id,
+      uuidv4(),
       req.body.first_name,
       req.body.last_name,
       req.body.email,
@@ -43,7 +43,7 @@ const Employee = {
         data: {
           message: 'User account created successfully',
           token,
-          userId,
+          userId: rows[0].id,
         },
       });
     } catch (error) {
@@ -93,13 +93,12 @@ const Employee = {
         },
       });
     } catch (error) {
-      console.log(error);
       return res.status(400).send(error);
     }
   },
 
   async deleteAll(req, res) {
-    const deleteQuery = 'DELETE FROM "public"."tw_employees" WHERE id=$1 returning *';
+    // const deleteQuery = 'DELETE FROM "public"."tw_employees" WHERE id=$1 returning *';
     const deleteAllQuery = 'DELETE FROM "public"."tw_employees" returning *';
     try {
       const { rows } = await db.query(deleteAllQuery);
