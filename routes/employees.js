@@ -9,7 +9,8 @@ const adminAuth = auth.admin;
 
 
 
-router.post('/create-user', adminAuth, employeeCtrl.create);
+// router.post('/create-user', adminAuth, employeeCtrl.create);
+router.post('/create-user',  employeeCtrl.create);
 router.post('/signin', employeeCtrl.login);
 
 

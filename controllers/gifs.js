@@ -38,6 +38,7 @@ const Gif = {
     ];
     try {
       const { rows } = await db.query(text, values);
+      console.log(weGlobal)
       return res.status(201).send({
         status: "success",
         data: {

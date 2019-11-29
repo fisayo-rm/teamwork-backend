@@ -4,6 +4,9 @@ const uuidv4 = require('uuid/v4');
 const app = require('../app');
 const employeeCtrl = require('../controllers/employees');
 
+// global.weGlobal = "We Not Global";
+// console.log(weGlobal);
+
 const { expect } = chai;
 chai.use(chaiHttp);
 
@@ -54,7 +57,7 @@ describe('API Endpoints', () => {
       .post('/api/v1/auth/create-user')
       .send({
         first_name: 'John',
-        last_name: 'Doe',
+        last_name: 'Doey',
         email: 'jdoe@email.com',
         password: 'password',
         gender: 'male',

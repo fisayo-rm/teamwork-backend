@@ -43,6 +43,7 @@ const errorHandler = (error) => {
 
 const onListening = () => {
   const bind = typeof address === 'string' ? `pipe ${address}` : `port ${port}`;
+  // SET NODE_ENV=test;
   console.log(`Listening on ${bind}`);
 };
 
