@@ -8,7 +8,8 @@ const Post = {
       const result = await db.query(queryText);
       if (!result.rows[0]) {
         return res.status(400).send({
-          message: 'No feeds',
+          status: "error",
+          error: 'No feeds',
         });
       }
       return res.status(201).send({
@@ -16,8 +17,10 @@ const Post = {
         data: result.rows,
       });
     } catch (error) {
-      console.log(error);
-      return res.status(400).send(error);
+      return res.status(400).send({
+        status: "error",
+        error
+      });
     }
   },
 };

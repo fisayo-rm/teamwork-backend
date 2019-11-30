@@ -27,7 +27,10 @@ const Article = {
         },
       });
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(400).send({
+        status: "error",
+        error
+      });
     }
   },
 
@@ -40,7 +43,8 @@ const Article = {
       const { rows } = await db.query(findOneQuery, [req.params.articleId, req.user.id]);
       if (!rows[0]) {
         return res.status(404).send({
-          message: 'article not found',
+          status: "error",
+          error: 'article not found',
         });
       }
       const values = [
@@ -73,7 +77,8 @@ const Article = {
       const { rows } = await db.query(deleteQuery, [req.params.articleId, req.user.id]);
       if (!rows[0]) {
         return res.status(400).send({
-          message: 'article not found',
+          status: "error",
+          error: 'article not found',
         });
       }
       return res.status(204).send({
@@ -83,7 +88,10 @@ const Article = {
         },
       });
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(400).send({
+        status: "error",
+        error
+      });
     }
   },
 
@@ -95,7 +103,8 @@ const Article = {
       const { rows } = await db.query(text, [req.params.articleId]);
       if (!rows[0]) {
         return res.status(400).send({
-          message: 'Article not found',
+          status: "error",
+          error: 'Article not found',
         });
       }
       return res.status(200).send({
@@ -110,7 +119,10 @@ const Article = {
         },
       });
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(400).send({
+        status: "error",
+        error
+      });
     }
   },
 };

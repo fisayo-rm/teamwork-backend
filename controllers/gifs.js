@@ -18,9 +18,12 @@ const Gif = {
       imageFile.url = image.url;
       imageFile.public_id = image.public_id;
 
-      if(err) {
+      if(error) {
         imageFile.url = "https://media.giphy.com/media/8L0Pky6C83SzkzU55a/giphy.gif";
-        return res.status(400).send(err);
+        return res.status(400).send({
+          status: "error",
+          error
+        });
       }
     })
 
@@ -51,8 +54,10 @@ const Gif = {
         }
       });
     } catch (error) {
-      console.log(error);
-      return res.status(400).send(error);
+      return res.status(400).send({
+        status: "error",
+        error
+      });
     }
   },
 
@@ -66,7 +71,8 @@ const Gif = {
       ]);
       if (!rows[0]) {
         return res.status(400).send({
-          message: "gif image not found"
+          status: "error",
+          error: "gif image not found"
         });
       }
       return res.status(201).send({
@@ -90,7 +96,8 @@ const Gif = {
       const { rows } = await db.query(text, [req.params.gifId]);
       if (!rows[0]) {
         return res.status(400).send({
-          message: "Gif not found"
+          status: "error",
+          error: "Gif not found"
         });
       }
       return res.status(200).send({
@@ -101,7 +108,10 @@ const Gif = {
         }
       });
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(400).send({
+        status: "error",
+        error
+      });
     }
   }
 };

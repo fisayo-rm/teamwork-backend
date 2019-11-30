@@ -32,7 +32,10 @@ const Gif = {
         },
       });
     } catch (error) {
-      return res.status(400).send(error);
+    return res.status(400).send({
+      status: "error",
+      error
+    });
     }
   },
 };

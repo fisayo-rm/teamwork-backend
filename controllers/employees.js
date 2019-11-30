@@ -7,12 +7,14 @@ const Employee = {
   async create(req, res) {
     if (!req.body.email || !req.body.password) {
       return res.status(400).send({
-        message: 'Some values are missing',
+        status: "error",
+        error: 'Some values are missing',
       });
     }
     if (!helper.isValidEmail(req.body.email)) {
       return res.status(400).send({
-        message: 'Please enter a valid email address',
+        status: "error",
+        error: 'Please enter a valid email address',
       });
     }
     const hashPassword = helper.hashPassword(req.body.password);
@@ -63,12 +65,14 @@ const Employee = {
   async login(req, res) {
     if (!req.body.email || !req.body.password) {
       return res.status(400).send({
-        message: 'Some values are missing',
+        status: "error",
+        error: 'Some values are missing',
       });
     }
     if (!helper.isValidEmail(req.body.email)) {
       return res.status(400).send({
-        message: 'Please enter a valid email address',
+        status: "error",
+        error: 'Please enter a valid email address',
       });
     }
     const loginQuery = 'SELECT * FROM "public"."tw_employees" WHERE email = $1';
@@ -76,12 +80,14 @@ const Employee = {
       const { rows } = await db.query(loginQuery, [req.body.email]);
       if (!rows[0]) {
         return res.status(400).send({
-          message: 'Username does not exist',
+          status: "error",
+          error: 'Username does not exist',
         });
       }
       if (!helper.comparePassword(rows[0].password, req.body.password)) {
         return res.status(400).send({
-          message: 'Incorrect password',
+          status: "error",
+          error: 'Incorrect password',
         });
       }
       const token = helper.generateToken(rows[0].id);
@@ -93,7 +99,10 @@ const Employee = {
         },
       });
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(400).send({
+        status: "error",
+        error
+      });
     }
   },
 
