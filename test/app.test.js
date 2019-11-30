@@ -4,8 +4,7 @@ const uuidv4 = require('uuid/v4');
 const app = require('../app');
 const employeeCtrl = require('../controllers/employees');
 
-// global.weGlobal = "We Not Global";
-// console.log(weGlobal);
+let testToken = process.env.TEST_TOKEN;
 
 const { expect } = chai;
 chai.use(chaiHttp);
@@ -29,6 +28,17 @@ describe('API Endpoints', () => {
     await employeeCtrl.deleteAll();
   });
 
+  // before(() => {
+  //   chai.request(app)
+  //     .post('/api/v1/admin/signin')
+  //     .send({
+  //       email: 'johndoe@email.com',
+  //       password: 'password',
+  //     })
+  //     .end((err, res) => {
+  //     })
+  // })
+
   it('Adds a new a employee', (done) => {
     chai.request(app)
       .post('/api/v1/auth/create-user')
@@ -42,6 +52,7 @@ describe('API Endpoints', () => {
         department: 'IT',
         address: 'here, there, everywhere',
       })
+      .set('x-access-token', testToken)
       .end((err, res) => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.equal('success');
@@ -65,6 +76,7 @@ describe('API Endpoints', () => {
         department: 'IT',
         address: 'here, there, everywhere',
       })
+      .set('x-access-token', testToken)
       .end((err, res) => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.equal('success');
