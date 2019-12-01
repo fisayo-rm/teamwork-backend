@@ -1,7 +1,9 @@
 language: node_js
-
 node_js:
-  - 10.16.3
-
+- 10.16.3
 after_success:
-  - npm run coverage
+- npm run coverage
+deploy:
+  provider: heroku
+  api_key:
+    secure: fROi9PPMNgxIWWrI+1JDiPp15+Lge0+NXZtm6GFPz73sZrcSKUKxKJGeqOVQzzveFdfPQFavDKB+57mPj/O4YqpbWs8R+QU7HynJlWhJkivn0AAc/P8rqnoH/DjHZL80lIwN2h2e7bVk0aaRJOss3JlWmioWf+ULTVfzq9rnm3803/byP/4FmqbbrrmnH2V1GTdHiHhpdl6Gxe/yWEQAHvnSgHMFED8ZcccMHPID+bYibu4rOUI0KEHckc0FnvE3/exlLP8AKbY4kR9ngRXDGbVisFlQyQ3PvwcB6aAycjRf7128j8OL2EB52TSJJ1mNSx0fpr6ZqFrOj4MoJflwAHrSQlftB3CXx5BlK+zeuX+y8pj5mC4zLD8e/1hln1zoLoz3EYFSXPzF/Cm1vYkpqFhzFZTY1dvEFvFo3K6XWsEU/8BCdQR4DTBsEG05nnMf2x0MAOOMXher+FheqXlHuauYV1PZ7QySrHBd1WynySPv8IBuOB/KpzSoiyf+4eIfcRmPhOrlmaNmDzQ5SihsUnMeDfOGwzVndqrdOvL4IXvpBfLh0ZjybGNxg6XRJfzOQKt9XsHX3Rl3GTNqdI0Upxk5csSm3hAfM/czPShO67A7K0wMAyHCvQ1JesJfW3nLKPQB92wY6PA/3W5ILM5ss4t7SqA7zeXnTxNUiEToKp8=
