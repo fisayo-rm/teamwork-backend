@@ -6,6 +6,8 @@ const employeeCtrl = require('../controllers/employees');
 
 let testToken = process.env.TEST_TOKEN;
 
+// VERY IMPORTANT!!! Run "SET NODE_ENV=fistest" in local terminal before running this test
+
 const { expect } = chai;
 chai.use(chaiHttp);
 
